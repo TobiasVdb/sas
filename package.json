@@ -1,0 +1,23 @@
+{
+  "name": "sword-shield-landing",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/vite-runner.mjs dev",
+    "build": "node scripts/vite-runner.mjs build && node scripts/postbuild-static-routes.mjs",
+    "dist": "npm run build && node scripts/deploy-ftp.mjs",
+    "deploy:ftp": "node scripts/deploy-ftp.mjs",
+    "preview": "node scripts/vite-runner.mjs preview"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.4.1",
+    "basic-ftp": "^5.0.5",
+    "vite": "^7.1.7"
+  }
+}
