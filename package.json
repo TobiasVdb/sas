@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "node scripts/vite-runner.mjs dev",
     "build": "node scripts/vite-runner.mjs build && node scripts/postbuild-static-routes.mjs",
-    "dist": "npm run build && node scripts/deploy-ftp.mjs",
+    "build:ftp": "node scripts/build-ftp.mjs",
+    "start": "node server.mjs",
+    "dist": "npm run build:ftp && node scripts/deploy-ftp.mjs",
     "deploy:ftp": "node scripts/deploy-ftp.mjs",
     "preview": "node scripts/vite-runner.mjs preview"
   },
