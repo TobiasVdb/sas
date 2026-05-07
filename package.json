@@ -6,10 +6,7 @@
   "scripts": {
     "dev": "node scripts/vite-runner.mjs dev",
     "build": "node scripts/vite-runner.mjs build && node scripts/postbuild-static-routes.mjs",
-    "build:ftp": "node scripts/build-ftp.mjs",
     "start": "node server.mjs",
-    "dist": "npm run build:ftp && node scripts/deploy-ftp.mjs",
-    "deploy:ftp": "node scripts/deploy-ftp.mjs",
     "preview": "node scripts/vite-runner.mjs preview"
   },
   "dependencies": {
@@ -19,7 +16,6 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "^4.4.1",
-    "basic-ftp": "^5.0.5",
     "vite": "^7.1.7"
   }
 }
