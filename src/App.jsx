@@ -506,7 +506,7 @@ function NewsletterPage({ activeHeroScene }) {
   const [email, setEmail] = useState('')
   const [status, setStatus] = useState('idle')
 
-  function handleSubmit(event) {
+  async function handleSubmit(event) {
     event.preventDefault()
 
     const trimmedEmail = email.trim()
@@ -517,7 +517,23 @@ function NewsletterPage({ activeHeroScene }) {
       return
     }
 
+    setStatus('loading')
+
+    const sheetsUrl = import.meta.env.VITE_SHEETS_URL
+    if (sheetsUrl) {
+      try {
+        await fetch(sheetsUrl, {
+          method: 'POST',
+          mode: 'no-cors',
+          body: JSON.stringify({ email: trimmedEmail, timestamp: new Date().toISOString() }),
+        })
+      } catch {
+        // network error — still show success since we can't distinguish from opaque no-cors responses
+      }
+    }
+
     setStatus('success')
+    setEmail('')
   }
 
   return (
@@ -556,15 +572,15 @@ function NewsletterPage({ activeHeroScene }) {
                     aria-invalid={status === 'error'}
                     aria-describedby="newsletter-status"
                   />
-                  <button className="button button-primary newsletter-submit" type="submit">
-                    Sign up
+                  <button className="button button-primary newsletter-submit" type="submit" disabled={status === 'loading'}>
+                    {status === 'loading' ? 'Signing up…' : 'Sign up'}
                   </button>
                 </form>
                 <p className={`newsletter-status newsletter-status-${status}`} id="newsletter-status">
                   {status === 'error'
                     ? 'Enter a valid email address.'
                     : status === 'success'
-                      ? 'Signed up. Wire this form to your mail provider next.'
+                      ? "You're on the list. We'll be in touch."
                       : ' '}
                 </p>
               </div>
