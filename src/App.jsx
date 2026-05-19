@@ -556,15 +556,24 @@ function NewsletterPage({ activeHeroScene }) {
             </div>
             <div className="newsletter-hero__overlay">
               <div className="newsletter-card">
-                {status === 'success' ? (
+                {status === 'loading' || status === 'success' ? (
                   <div className="newsletter-confirmation" role="status" aria-live="polite">
-                    <span className="hero-scene-orb hero-scene-orb-active newsletter-success-orb" aria-hidden="true">
+                    <span
+                      className={`hero-scene-orb newsletter-state-orb ${
+                        status === 'loading' ? 'newsletter-state-orb-loading' : 'newsletter-state-orb-success'
+                      }`}
+                      aria-hidden="true"
+                    >
                       <span className="hero-scene-orb__particles" />
                     </span>
-                    <h1 className="newsletter-title">You're on the list.</h1>
-                    <p className="newsletter-confirmation__text">
-                      We'll keep you up to date on our upcoming adventures.
-                    </p>
+                    {status === 'success' ? (
+                      <div className="newsletter-confirmation__copy">
+                        <h1 className="newsletter-title">You're on the list.</h1>
+                        <p className="newsletter-confirmation__text">
+                          We'll keep you up to date on our upcoming adventures.
+                        </p>
+                      </div>
+                    ) : null}
                   </div>
                 ) : (
                   <>
