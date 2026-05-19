@@ -556,33 +556,43 @@ function NewsletterPage({ activeHeroScene }) {
             </div>
             <div className="newsletter-hero__overlay">
               <div className="newsletter-card">
-                <h1 className="newsletter-title">Join the watchlist</h1>
-                <form className="newsletter-form" onSubmit={handleSubmit}>
-                  <input
-                    id="newsletter-email"
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(event) => {
-                      setEmail(event.target.value)
-                      if (status !== 'idle') {
-                        setStatus('idle')
-                      }
-                    }}
-                    aria-invalid={status === 'error'}
-                    aria-describedby="newsletter-status"
-                  />
-                  <button className="button button-primary newsletter-submit" type="submit" disabled={status === 'loading'}>
-                    {status === 'loading' ? 'Signing up…' : 'Sign up'}
-                  </button>
-                </form>
-                <p className={`newsletter-status newsletter-status-${status}`} id="newsletter-status">
-                  {status === 'error'
-                    ? 'Enter a valid email address.'
-                    : status === 'success'
-                      ? "You're on the list. We'll be in touch."
-                      : ' '}
-                </p>
+                {status === 'success' ? (
+                  <div className="newsletter-confirmation" role="status" aria-live="polite">
+                    <span className="hero-scene-orb hero-scene-orb-active newsletter-success-orb" aria-hidden="true">
+                      <span className="hero-scene-orb__particles" />
+                    </span>
+                    <h1 className="newsletter-title">You're on the list.</h1>
+                    <p className="newsletter-confirmation__text">
+                      We'll keep you up to date on our upcoming adventures.
+                    </p>
+                  </div>
+                ) : (
+                  <>
+                    <h1 className="newsletter-title">Join the watchlist</h1>
+                    <form className="newsletter-form" onSubmit={handleSubmit}>
+                      <input
+                        id="newsletter-email"
+                        type="email"
+                        placeholder="Email address"
+                        value={email}
+                        onChange={(event) => {
+                          setEmail(event.target.value)
+                          if (status !== 'idle') {
+                            setStatus('idle')
+                          }
+                        }}
+                        aria-invalid={status === 'error'}
+                        aria-describedby="newsletter-status"
+                      />
+                      <button className="button button-primary newsletter-submit" type="submit" disabled={status === 'loading'}>
+                        {status === 'loading' ? 'Signing up...' : 'Sign up'}
+                      </button>
+                    </form>
+                    <p className={`newsletter-status newsletter-status-${status}`} id="newsletter-status">
+                      {status === 'error' ? 'Enter a valid email address.' : ' '}
+                    </p>
+                  </>
+                )}
               </div>
             </div>
           </div>
@@ -1242,17 +1252,11 @@ function App() {
         <section className="section cta-section reveal" id="join">
           <div className="cta-panel">
             <h2 className="cta-title">Join the watchlist</h2>
-            <form className="signup-form">
-              <input
-                id="email"
-                type="email"
-                placeholder="Email address"
-                aria-label="Email address"
-              />
+            <div className="signup-form">
               <a className="button button-primary" href={newsletterUrl}>
                 Sign up
               </a>
-            </form>
+            </div>
           </div>
         </section>
 
